@@ -1,31 +1,53 @@
 package com.moduleforge.libraries.java3dfacade;
 
+import java.util.Collections;
+import java.util.List;
+
 import javax.media.j3d.Appearance;
 import javax.media.j3d.GeometryArray;
 import javax.media.j3d.Material;
+import javax.media.j3d.Node;
 import javax.media.j3d.Shape3D;
 import javax.media.j3d.Texture;
 import javax.media.j3d.Texture2D;
 import javax.media.j3d.TextureAttributes;
 import javax.vecmath.Color3f;
 import javax.vecmath.Color4f;
+import javax.vecmath.Point3d;
 
 import com.sun.j3d.utils.geometry.GeometryInfo;
 import com.sun.j3d.utils.geometry.NormalGenerator;
+import com.sun.j3d.utils.picking.PickTool;
 
 public abstract class Polygon {
 
    protected Shape3D shape;
 
+   /**
+    * Points do have an order that determines the face direction
+    */
+   protected List<Point3d> points;
+   
+   protected Polygon(List<Point3d> points) {
+      this.points = points;
+   }
+   
    public Shape3D getShape() {
       return shape;
    }
    
+   public List<Point3d> getPoints(){
+      return Collections.unmodifiableList(points);
+   }
+
    static Shape3D makeShape(GeometryArray geometryArray, Appearance appearance) {
       GeometryInfo geometryInfo = Polygon.generateNormals(geometryArray);
       GeometryArray front = geometryInfo.getGeometryArray();
-      
-      return new Shape3D(front, appearance);
+      Shape3D shape3d = new Shape3D(front, appearance);
+
+      shape3d.setCapability(Node.ENABLE_PICK_REPORTING);
+      PickTool.setCapabilities(shape3d, PickTool.INTERSECT_FULL);
+      return shape3d;
    }
    
    static GeometryInfo generateNormals(GeometryArray ga) {

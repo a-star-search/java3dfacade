@@ -1,5 +1,7 @@
 package com.moduleforge.libraries.java3dfacade;
 
+import java.util.Arrays;
+
 import javax.media.j3d.Appearance;
 import javax.media.j3d.GeometryArray;
 import javax.media.j3d.TriangleArray;
@@ -17,6 +19,7 @@ class Triangle extends Polygon {
    }
    
    Triangle(Point3d pointA, Point3d pointB, Point3d pointC, Appearance appearance) {
+      super(Arrays.asList(new Point3d[] {pointA, pointB, pointC}));
       TriangleArray triangle = new TriangleArray(3, GeometryArray.COORDINATES);
       triangle.setCoordinate(0, pointA);
       triangle.setCoordinate(1, pointB);
