@@ -14,6 +14,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.moduleforge.libraries</groupId>
+			<artifactId>Geometry</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.moduleforge.libraries</groupId>
 			<artifactId>Util</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
